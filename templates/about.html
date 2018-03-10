@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+
+<head>
+<title>About Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    
+    
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+   .footer {
+    padding: 50px 0 20px 0;
+    background-color: #35404f;
+    color: #878c94;
+}
+.footer .title{text-align: left;color:#fff;font-size:25px;}
+
+
+.footer .social-icon{padding:0px;margin:0px;}
+.footer .social-icon a{display:inline-block;color:#fff;font-size:25px;padding:5px;}
+.footer .acount-icon a{display:block;color:#fff;font-size:18px;padding:5px;text-decoration:none;}
+.footer .acount-icon .fa{margin-right:25px;}
+
+
+.footer .category a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    padding: 5px 20px;
+    margin: 1px;
+    border-radius:4px;
+    margin-top: 6px;
+    background-color: black;
+    border: solid 1px #fff;
+}
+
+.footer .payment{margin:0px;padding:0px;list-style-type:none}
+.footer .payment li{list-style-type:none}
+.footer .payment li a {
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    float: left;
+    font-size: 25px;
+    padding: 10px 10px;
+}
+    
+     .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+
+
+<body>
+<nav class="navbar navbar-inverse" style="background-color:None">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Online Rental</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href={% url 'home' %}>Home</a></li>
+      <li><a href={% url 'car_list' %}>Rent</a></li>
+      <li><a href={% url 'cart' %}>Cart</a></li>
+	  <li><a href={% url 'about' %}>About</a></li>
+	  <li><a href={% url 'contact' %}>Contact Us</a></li>
+    </ul>
+    
+	
+      <li class="active" style="float:right;">
+      <li style="float:right;">
+      
+    <div class="collapse navbar-collapse" id="mainMenu">
+      {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ user.username }}
+			  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+              <a class="dropdown-item" href="#">My account</a>
+			  <br/>
+              <a class="dropdown-item" href="{% url 'password_reset' %}">Change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+            </div>
+          </li>
+        </ul>
+      {% else %}
+        <form class="form-inline ml-auto">
+          <a href="{% url 'login' %}" class="btn btn-outline-secondary" style="color:red;">Log in <span class="glyphicon glyphicon-log-in" aria-hidden="true" style="color:red;"></span></a>
+         
+		  <a href="{% url 'signup' %}" class="btn btn-primary ml-2" style="color:red;">Sign up <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="color:red;"></span></a>
+			
+		</form>
+      {% endif %}
+    </div>
+	
+  </div>
+  
+</nav>
+
+
+
+
+
+<div class="container-fluid text-center">    
+  <div class="row content">
+    
+    <div class="col-sm-8 text-left"> 
+      <h1>Welcome To Online Rentals website</h1>
+      <p> Online Rental website offers you to navigate through different pages. As a leading company we are trying make profits more than 1 billion every year.</p>
+      <hr>
+      <h3>Key Functions</h3>
+      <p>Rent----gives you list of all cars available followed by Rent option which enables the user to rent the car for the dates he selected</p>
+	  <p>CART----gives you list of all cars you have rented </p>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p><a href="https://www.djangoproject.com/"><img src="{% static 'img/django.jpg' %}" alt="ronaldo.txt" /></a></p>
+      </div>
+	  
+      <div class="well">
+        <p><a href="www.simpleisbetterthancomplex.com"><img src="{% static 'img/python.png' %}" /> </a> </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+        <div class="col-sm-3">
+            <h4 class="title">ONLINE RENTAL</h4>
+            <p>Online rentals has different variety of cars avialable at any time to the best cost</p>
+            <ul class="social-icon">
+            <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" class="social"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="social"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+            <a href="#" class="social"><i class="fa fa-google" aria-hidden="true"></i></a>
+            <a href="#" class="social"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+            </ul>
+            </div>
+        
+        
+        <div class="col-sm-3">
+            <h4 class="title">Payment Methods</h4>
+            <p>Payment Methods can be any of the below</p>
+            <ul class="payment">
+            <li><a href="#"><i class="fa fa-cc-amex" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i></a></li>            
+            <li><a href="#"><i class="fa fa-paypal" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-cc-visa" aria-hidden="true"></i></a></li>
+            </ul>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="row text-center"> © 2018. @Thanuj Desineni</div>
+        </div>
+        
+        
+    </footer>
+
+
+</body>
+
+
+
+
+
+</html>

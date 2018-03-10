@@ -1,0 +1,2 @@
+
+1) userdetails is the app which i created will takecare of all user accounts.

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+<style>
+.content-header{
+  font-family: 'Oleo Script', cursive;
+  color:#fcc500;
+  font-size: 45px;
+}
+
+.section-content{
+  text-align: center; 
+
+}
+#contact{
+    
+    font-family: 'Teko', sans-serif;
+  padding-top: 60px;
+  width: 100%;
+  width: 100vw;
+  height: 650px;
+  background: #3a6186; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #3a6186 , #89253e); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #3a6186 , #89253e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color : #fff;    
+}
+.contact-section{
+  padding-top: 40px;
+}
+.contact-section .col-md-6{
+  width: 50%;
+}
+
+body{
+
+background-image:url({% static 'img/back.png' %});
+background-size:cover; background-repeat:no-repeat;
+}
+
+.container{
+padding: 20px;
+  max-width: 350px;
+  width: 100% !important;
+  color:black;
+  margin: 0 auto;
+  border-radius: 1px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  font-family: roboto;
+  font-size:18px;
+  
+}
+</style>
+ 
+
+<title> Contact Form </title>
+
+</head>
+
+<body>
+
+
+
+
+
+
+<section id="contact">
+			<div class="section-content">
+				<h1 class="section-header">Welcome To <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Online Rental Contact Desk</span></h1>
+				<h3>We are here to help you. Please fill out the form for better help</h3>
+			<ul>
+		<li> <a href="/" style="color:red"> HOME PAGE </a> </li>
+		
+		<li>	<a href={% url 'about' %} style="color:red"> ABOUT </a> </li>
+		</ul>
+			</div>
+			<div class="contact-section">
+			
+			
+			<div class="container">
+			
+
+
+
+<form method="POST">
+{% csrf_token %}
+
+
+{{ form.as_p}}
+<button type="submit" class="btn btn-primary"> Submit </button>
+</div>
+</form>
+</div>
+
+</section>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  
+ <style>
+ .right{
+ float:right;
+ }
+ body{
+
+<!-- background-image:url({% static 'img/back.png' %}); -->
+background-size:cover;
+ background-repeat:no-repeat;
+}
+
+.container{
+
+width:60px;
+height:400px;
+
+}
+ </style>
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-inverse" style="background-color:None">
+  <div class="container-fluid">
+    <div class="navbar-header">
+       <a class="navbar-brand" href={% url 'home' %}>ONLINE RENTAL <span><img src={% static 'img/toyota.png' %} style="height:25px;"/> </span></a>  
+	  
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href={% url 'home' %}>Home</a></li>
+      
+      <li><a href={% url 'history' %}>Cart</a></li>
+	  <li><a href={% url 'about' %}>About</a></li>
+	  <li><a href={% url 'contact' %}>Contact Us</a></li>
+    </ul>
+    
+	
+      <li class="active" style="float:right;">
+      <li style="float:right;">
+      
+    <div class="collapse navbar-collapse" id="mainMenu">
+      {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ user.username }}
+			  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+              <a class="dropdown-item" href="#">My account</a>
+			  <br/>
+              <a class="dropdown-item" href="{% url 'password_reset' %}">Change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+            </div>
+          </li>
+        </ul>
+      {% else %}
+        <form class="form-inline ml-auto">
+          <a href="{% url 'login' %}" class="btn btn-outline-secondary" style="color:red;">Log in <span class="glyphicon glyphicon-log-in" aria-hidden="true" style="color:red;"></span></a>
+         
+		  <a href="{% url 'signup' %}" class="btn btn-primary ml-2" style="color:red;">Sign up <span class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="color:red;"></span></a>
+			
+		</form>
+      {% endif %}
+    </div>
+	
+  </div>
+  
+</nav>
+
+
+
+
+<div class="mystyle" style=" height:600px; background-image:url({% static 'img/back.png' %}); background-size:cover; background-repeat:no-repeat; color:red;">
+<div class="mystyle1" style=" text-align:center;  font-size:20px; position:relative; left:-250px; " >
+<div class="container">
+<form method="POST" action={% url 'car_list' %}>
+
+{% csrf_token %}
+{{form1.as_p}}
+<button type="submit" class="btn btn-primary">Search </button>
+
+</form>
+</div>
+</div>
+</div>
+
+
+<!-- <script src={% static 'js/alert.js' %}> </script>  -->
+
+</body>
+
+</html>
