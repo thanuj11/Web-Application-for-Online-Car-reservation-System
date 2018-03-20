@@ -10,11 +10,8 @@ from .models import car, category, rental
 from django.db.models import F
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-import csv
-from bs4 import BeautifulSoup
-import requests
-import csv
 
+from .fusioncharts import FusionCharts
 # Create your views here.
 stdate= datetime.datetime.today()
 stdatetoday= datetime.datetime.today().strftime('%Y-%m-%d')
@@ -58,6 +55,8 @@ def car_cart(request):
 		cart_list= car.objects.get(car_id=id)
 		cart_list_id= cart_list.car_id
 		#print(cart_list_id)
+		#print(cart_list.brand)
+		#print(cart_list.model)
 		userna=request.user
 		#print(request.user)
 		pick=cart_list.pickuplocation
@@ -70,14 +69,14 @@ def car_cart(request):
 		#print(cart_list.status)
 		if(stdate<enddate):
 			cart1= rental.objects.create(car_id=cart_list,username=userna,pickuplocation=pick,dropofflocation=drop, startdate=start, enddate=end)
-			#print(cart1)
+			print(cart1.car_id.brand)
 			try:
 				#rows=['id','username','pickuplocation','dropofflocation','startdate','enddate']
 				fopen= open('dat.txt','a')
 				#for i in cart1:
 				
 					
-				fopen.write(str(cart1.booking_id)+" " + str(cart1.username)+ " " + cart1.pickuplocation+ " " + cart1.dropofflocation+ " " + str(start)+ " " + str(end))
+				fopen.write(str(cart1.booking_id)+" "+ cart_list.brand+ " " +cart_list.model+" " + str(cart1.username)+ " " + cart1.pickuplocation+ " " + cart1.dropofflocation+ " " + str(start)+ " " + str(end))
 				fopen.write("\n")
 			finally:
 				fopen.close()
@@ -90,7 +89,7 @@ def car_cart(request):
 		for c in cart2:
 			
 			if (str(c.enddate)<stdatetoday):
-				rental.objects.filter(car_id=c.car_id).delete()
+				rental.objects.filter(booking_id=c.booking_id).delete()
 				
 				
 		#with open('C:/studies/python/django/online_reservation/templates/cart.html') as file:
@@ -111,4 +110,59 @@ def history(request):
 	cart= rental.objects.filter(username=userna)
 	return render(request,'history.html',{"cart":cart})
 	
+	
+def chart(request):
+	# Chart data is passed to the `dataSource` parameter, as dict, in the form of key-value pairs.
+	dataSource = {}
+    # setting chart cosmetics
+	dataSource['chart'] = { 
+		"caption" : "Top 10 Most Populous Cars",
+		"paletteColors" : "#0075c2",
+		"bgColor" : "#ffffff",
+		"borderAlpha": "20",
+		"canvasBorderAlpha": "0",
+		"usePlotGradientColor": "0",
+		"plotBorderAlpha": "10",
+		"showXAxisLine": "1",
+		"xAxisLineColor" : "#999999",
+		"showValues" : "0",
+		"divlineColor" : "#999999",
+		"divLineIsDashed" : "1",
+		"showAlternateHGridColor" : "0"
+		}
+     
+      
+	dataSource['data'] = []
+      # The data for the chart should be in an array wherein each element of the array is a JSON object as
+      # `label` and `value` keys.
+      # Iterate through the data in `Country` model and insert in to the `dataSource['data']` list.
+	
+	
+	for key in rental.objects.all():
+		data = {}
+		data['label'] = key.car_id.brand
+		#data['value'] = rental.objects.filter(car_id=key.car_id).distinct().count()
+		data['value'] = rental.objects.filter(car_id=key.car_id).count()
+		
+		if key.car_id.brand not in data['label']:
+			pass
+		else:
+			dataSource['data'].append(data)
+		#count=0
+		#print(data.values())
+		#for key.car_id.brand in data['label']:
+		#	count=count+1
+		#	print(count)
+		#if(count==1):
+		
+			
+			
+			
+
+      # Create an object for the Column 2D chart using the FusionCharts class constructor               
+	column2D = FusionCharts("column2D", "ex1" , "600", "400", "chart-1", "json", dataSource)
+      # returning complete JavaScript and HTML code, which is used to generate chart in the browsers.
+	return render(request, 'fusioncharts-html-template.html', {'output': column2D.render()}) 
+  
+  	
 	

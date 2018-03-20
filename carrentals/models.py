@@ -17,7 +17,8 @@ class car(models.Model):
 	pickuplocation=models.CharField(max_length=50)
 	dropofflocation= models.CharField(max_length=50)
 	category_type= models.ForeignKey('category',on_delete=models.CASCADE,related_name='cars')
-	
+	def car_count(self,):
+		return self.car_id.count()
 	
 
 	

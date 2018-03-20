@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'userdetails',
 	
 	'carrentals',
+	'rest_framework',
 	
 
 ]
