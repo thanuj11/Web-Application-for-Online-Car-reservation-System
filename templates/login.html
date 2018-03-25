@@ -26,7 +26,12 @@ padding: 20px;
   style="padding:10px;"
 }
 
+
 </style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -55,8 +60,8 @@ Twitter
 </a>
 -->
 
-<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-<a href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+<a href="{% url 'social:begin' 'github' %}"><i class="fa fa-github"> Login with GitHub</i></a><br>
+<a href="{% url 'social:begin' 'twitter' %}"><i class="fa fa-twitter-square"> Login with Twitter </i></a>
 <!-- 
 <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
 -->
