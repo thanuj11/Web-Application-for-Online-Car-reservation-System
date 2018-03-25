@@ -45,6 +45,22 @@ padding: 20px;
 <button type="submit"> Submit </button>
 </form>
 
+<!--
+<a href="https://www.facebook.com/sharer/sharer.php?u= http://127.0.0.1:8000/login">
+Facebook
+</a>
+
+<a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@tanu%20http://127.0.0.1:8000/login/">
+Twitter
+</a>
+-->
+
+<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+<a href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+<!-- 
+<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+-->
+
 </div>
 </body>
 

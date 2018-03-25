@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$0m$w4p6^hyc@e+-lv_4!2k@-qtd3$li3$a+0_=_5^n!@)8r=o'
+#SECRET_KEY = '$0m$w4p6^hyc@e+-lv_4!2k@-qtd3$li3$a+0_=_5^n!@)8r=o'
+
+#using decouple
+SECRET_KEY = config('SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +46,7 @@ INSTALLED_APPS = [
 	
 	'carrentals',
 	'rest_framework',
+	'social_django',
 	
 
 ]
@@ -55,7 +61,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
-   'django_otp.middleware.OTPMiddleware',
+     
+	'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 
@@ -74,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+				'social_django.context_processors.backends',
+				'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -112,6 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTHENTICATION_BACKENDS = (
+	'social_core.backends.github.GithubOAuth2',
+	'social_core.backends.twitter.TwitterOAuth',
+	'social_core.backends.facebook.FacebookOAuth2',
+	
+	'django.contrib.auth.backends.ModelBackend',
+)
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -145,4 +164,24 @@ EMAIL_PORT = 1025
 LOGIN_URL = 'login'
 
 LOGOUT_REDIRECT_URL = 'home'	
-	
+LOGIN_REDIRECT_URL = 'home'
+
+
+
+# all secret keys are saved in .env file for our safety
+
+#github account
+
+SOCIAL_AUTH_GITHUB_KEY = config(SOCIAL_AUTH_GITHUB_KEY)
+SOCIAL_AUTH_GITHUB_SECRET = config(SOCIAL_AUTH_GITHUB_SECRET)
+
+
+# twitter
+
+SOCIAL_AUTH_TWITTER_KEY =config(SOCIAL_AUTH_TWITTER_KEY)
+SOCIAL_AUTH_TWITTER_SECRET = config(SOCIAL_AUTH_TWITTER_SECRET)
+
+
+#facebook
+#SOCIAL_AUTH_FACEBOOK_KEY = config(SOCIAL_AUTH_FACEBOOK_KEY)  # App ID
+#SOCIAL_AUTH_FACEBOOK_SECRET = config(SOCIAL_AUTH_FACEBOOK_SECRET)  # App Secret

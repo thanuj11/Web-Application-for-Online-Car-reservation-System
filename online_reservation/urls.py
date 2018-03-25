@@ -36,7 +36,7 @@ urlpatterns = [
 	url(r'^contact/$',details.contact, name='contact'),
 	url(r'^history/$', cars.history,name='history'),
 	url(r'^chart/$',cars.chart, name='chart'),
-	
+	url(r'^oauth/', include('social_django.urls', namespace='social')),
 	
 	url(r'^reset/$',
     auth_views.PasswordResetView.as_view(
