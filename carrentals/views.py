@@ -1,5 +1,6 @@
 #carrentals views
 import datetime
+import json
 from datetime import date
 from django.shortcuts import render
 from django.contrib.auth import authenticate,login as dj_login
@@ -77,7 +78,7 @@ def car_cart(request):
 				
 					
 				fopen.write(str(cart1.booking_id)+" "+ cart_list.brand+ " " +cart_list.model+" " + str(cart1.username)+ " " + cart1.pickuplocation+ " " + cart1.dropofflocation+ " " + str(start)+ " " + str(end))
-				fopen.write("\n")
+				
 			finally:
 				fopen.close()
 		else:
@@ -166,3 +167,47 @@ def chart(request):
   
   	
 	
+def inc_charts(request):
+	li_car=[]
+	li_count=[]
+	with open('../dat.txt','r') as file:
+		for i in file:
+			x=i.split(" ")
+			if x[1] not in li_car:
+				li_car.append(x[1])
+
+	#print(li_car)
+
+
+
+	for i in range(len(li_car)):
+		count=0
+		with open('dat.txt','r') as file1:
+			for j in file1:
+				x=j.split(" ")
+				#print(j)
+
+				if(x[1]==li_car[i]): 
+					count=count+1
+
+			li_count.append(count)
+			
+			
+	dataset=[]
+
+	for i in range(len(li_car)):
+		context1={
+		"company":li_car[i],
+		"count":li_count[i]
+		}
+		if context1 not in dataset:
+			dataset.append(context1)	
+	#print(dataset)
+	company = []
+	count = []
+	for entry in dataset:
+		company.append( entry['company'])
+		count.append(entry['count'])
+	return render(request, 'charts.html', {'company': json.dumps(company),
+		'count': json.dumps(count)})
+		

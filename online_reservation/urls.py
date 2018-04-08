@@ -35,7 +35,7 @@ urlpatterns = [
 	url(r'^about/$',details.about, name='about'),
 	url(r'^contact/$',details.contact, name='contact'),
 	url(r'^history/$', cars.history,name='history'),
-	url(r'^chart/$',cars.chart, name='chart'),
+	url(r'^chart/$',cars.inc_charts, name='chart'),
 	url(r'^oauth/', include('social_django.urls', namespace='social')),
 	
 	url(r'^reset/$',

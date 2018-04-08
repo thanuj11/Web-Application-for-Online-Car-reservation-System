@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="container"></div>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+  Highcharts.chart('container', {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'CARS VS COUNT'
+      },
+      xAxis: {
+          categories: {{ company |safe }}
+      },
+      series: [{
+          name: 'count',
+          data: {{ count }},
+          color: 'green'
+      }]
+  });
+</script>
+{% endblock %}
