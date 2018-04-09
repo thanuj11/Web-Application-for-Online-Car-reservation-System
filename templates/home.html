@@ -46,6 +46,10 @@ height:400px;
       <li><a href={% url 'history' %}>Cart</a></li>
 	  <li><a href={% url 'about' %}>About</a></li>
 	  <li><a href={% url 'contact' %}>Contact Us</a></li>
+    {% if request.user.is_superuser %}
+    <li><a href={% url 'chart' %}>Reports</a></li>
+
+    {% endif %}
     </ul>
     
 	
